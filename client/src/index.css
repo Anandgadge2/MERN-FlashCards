@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+body {
+  @apply bg-gradient-to-br from-blue-400 to-indigo-600 min-h-screen;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.4s ease-out;
+}
+/* --- Flashcard flip & layout --- */
+.flashcard {
+  perspective: 1500px;
+  width: 100%;
+  max-width: 640px;
+  height: 360px;
+  position: relative;
+  margin: 0 auto;
+}
+
+.flashcard-inner {
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(.2,.8,.2,1);
+  transform-style: preserve-3d;
+  position: relative;
+}
+
+.flashcard.flipped .flashcard-inner {
+  transform: rotateY(180deg);
+}
+
+.flashcard-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* allow clicks to hit container */
+  pointer-events: none;
+  border-radius: 1rem;
+}
+
+.flashcard-back {
+  transform: rotateY(180deg);
+}
+
+/* optional inner interactive elements can enable pointer events */
+.flashcard-face .interactive {
+  pointer-events: auto;
+}
+
+/* small responsive tweaks */
+@media (max-width: 768px) {
+  .flashcard { height: 320px; padding: 0; }
+  .flashcard-face { padding: 1.25rem; }
+}
